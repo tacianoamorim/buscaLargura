@@ -26,7 +26,6 @@ public class No implements Cloneable {
         try {
             return (No) super.clone();
         } catch (Exception e) {
-            //System.out.println (" No not allowed. " );
             return this;
         }
     }
@@ -86,11 +85,16 @@ public class No implements Cloneable {
 	public String toStringResumido() {
 		String texto = "- No ["+id+"]-"+nome+"("+valorHeuristica+") - Pai: "
 				+ (getNoPai()!=null? "["+ getNoPai().getId()+"] "+getNoPai().getNome() : "--- ");
-		texto= texto+ "\n      "+ array[0] +" | "+ array[1] +" | "+ array[2];
+		
+		
+		texto= texto+ "\n      "+ (array[0].length()==0?" ":array[0]) +" | "+ 
+								  (array[1].length()==0?" ":array[1]) +" | "+ array[2];
 		texto= texto+ "\n      ----------- ";
-		texto= texto+ "\n      "+ array[3] +" | "+ array[4] +" | "+ array[5];
+		texto= texto+ "\n      "+ (array[3].length()==0?" ":array[3]) +" | "+ 
+								  (array[4].length()==0?" ":array[4]) +" | "+ array[5];
 		texto= texto+ "\n      ----------- ";
-		texto= texto+ "\n      "+ array[6] +" | "+ array[7] +" | "+ array[8];		
+		texto= texto+ "\n      "+ (array[6].length()==0?" ":array[6]) +" | "+ 
+								  (array[7].length()==0?" ":array[7]) +" | "+ array[8];		
 		return texto;
 	}	
 	

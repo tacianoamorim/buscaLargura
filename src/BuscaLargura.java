@@ -43,8 +43,15 @@ public class BuscaLargura {
 		processarBusca(no);
 	}
 	
+	public No preCalculo(String[] arrayAleatorio, String[] arrayReferencia) {
+		this.idxNo= 0;
+		this.idxProfundidade= 1;
+		this.arrayReferencia= arrayReferencia;
+		return criarNo(arrayAleatorio);
+	}
+	
 	private boolean processarBusca(No no) {
-
+		
 		// Testa para ver se o resultado foi alcancado
 		if ( no.getValorHeuristica() == 0 ) {
 			obterResultadoNoPai(no);
@@ -56,20 +63,10 @@ public class BuscaLargura {
 			expandirNo(no);
 			
 			for (No noFilho : no.getFilhos() ) {
-				this.nos.add(noFilho);
+				if ( !existeArray(noFilho.getArray()) )
+					this.nos.add(noFilho);
 			}
 			
-//			for (No nov : nos) {
-//				System.out.print("Nos " + nov.getNome()+ "("+ nov.getValorHeuristica()+") " );
-//				if ( nov.getNoPai() != null ) {
-//					System.out.print(" Pai: "+ nov.getNoPai().getNome()+ "("+ nov.getNoPai().getValorHeuristica()+") " );
-//				}
-//				
-//				for (No noFilho : no.getFilhos() ) {
-//					System.out.print("     Filhos: "+ noFilho.getNome()+ "("+ noFilho.getValorHeuristica()+") " );
-//				}
-//				System.out.println();
-//			}
 			No noPonta = this.nos.poll();
 			if ( noPonta != null && processarBusca(noPonta) ) {
 				return true;
@@ -77,6 +74,7 @@ public class BuscaLargura {
 		}
 		return false;
 	}
+	
 	
 	/** * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *  TRATAMENTO E EXIBICAO DE RESULTADO
@@ -103,7 +101,7 @@ public class BuscaLargura {
 	/** * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *  CRIAR E EXPANDIR O NÓ
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	public No criarNo(String[] array) {
+	private No criarNo(String[] array) {
 		String nome= "No_";
 		int idx= ++idxNo;
 		if ( idx < 10) {
@@ -237,7 +235,10 @@ public class BuscaLargura {
 		int heuristica= 0;
 		for (int i = 0; i < array.length; i++) {
 			String letra= array[i];
-			heuristica= heuristica + getQuantidadePassos(letra, i);
+			//System.out.print("Letra: "+ letra +"("+i+")"  );
+			int qtdePassos= getQuantidadePassos(letra.trim(), i);
+			heuristica= heuristica + qtdePassos;
+			//System.out.println( " ("+qtdePassos+")");
 		}
 		return heuristica;
 	}	
@@ -245,6 +246,26 @@ public class BuscaLargura {
 	/** * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 *  TRATAMENTO NO ARRAY
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	private boolean existeArray(String[] array) {
+		boolean achei= false;
+		for (No no : this.nos) {
+			if (array[0].equals(no.getArray()[0]) && 
+				array[1].equals(no.getArray()[1]) && 
+				array[2].equals(no.getArray()[2]) && 
+				array[3].equals(no.getArray()[3]) && 
+				array[4].equals(no.getArray()[4]) && 
+				array[5].equals(no.getArray()[5]) && 
+				array[6].equals(no.getArray()[6]) && 
+				array[7].equals(no.getArray()[7]) && 
+				array[8].equals(no.getArray()[8]) 
+			) {
+				achei= true;
+				break;
+			}
+		}
+		return achei;
+	}
+	
 	private String[] trocaPosicaoArray(int idxAtual, int idxDestino, No noRef) {
 		String[] array= clonarArray(noRef.getArray());
 		array[idxDestino]= noRef.getArray()[idxAtual];
@@ -263,7 +284,7 @@ public class BuscaLargura {
 	private int getIndex(No no) {
 		int idx= 0;
 		for (int i = 0; i < no.getArray().length; i++) {
-			if ( " ".equals(no.getArray()[i]) ) {
+			if ( "".equals(no.getArray()[i]) ) {
 				idx= i;
 				break;
 			}
@@ -273,64 +294,21 @@ public class BuscaLargura {
 	
 	private int getQuantidadePassos(String letra, Integer idxAtual) {
 		int qtdePassos= 0;
-		
-		qtdePassos= getPassosDestinoOrigem(getIdxLetraRef(letra), idxAtual);
-		
-		
-//		switch (letra) {
-//		case "A":
-//			qtdePassos= getPassosDestinoOrigem(getIdxLetraRef(), idxAtual);
-//			break;
-//			
-//		case "B":
-//			qtdePassos= getPassosDestinoOrigem(1, idxAtual);
-//			break;			
-//
-//		case "C":
-//			qtdePassos= getPassosDestinoOrigem(2, idxAtual);
-//			break;
-//			
-//		case "H":
-//			qtdePassos= getPassosDestinoOrigem(3, idxAtual);
-//			break;
-//			
-//		case " ":
-//			qtdePassos= getPassosDestinoOrigem(4, idxAtual);
-//			break;
-//			
-//		case "D":
-//			qtdePassos= getPassosDestinoOrigem(5, idxAtual);
-//			break;
-//			
-//		case "G":
-//			qtdePassos= getPassosDestinoOrigem(6, idxAtual);
-//			break;
-//			
-//		case "F":
-//			qtdePassos= getPassosDestinoOrigem(7, idxAtual);
-//			break;
-//			
-//		case "E":
-//			qtdePassos= getPassosDestinoOrigem(8, idxAtual);
-//			break;
-//			
-//		default:
-//			break;
-//		}
-		
+		if ( !letra.trim().equals("")) {
+			qtdePassos= getPassosDestinoOrigem(getIdxLetraRef(letra), idxAtual);
+		}
 		return qtdePassos;
 	}
 	
 	private Integer getIdxLetraRef(String letra) {
 		int idx= 0;
-		
 		for (int i = 0; i < arrayReferencia.length; i++) {
-			if ( letra.equals( arrayReferencia[i] ) ) {
+			if ( letra.trim().equals( arrayReferencia[i].trim() ) ) {
 				idx= i;
 				break;
 			}
 		}
-		
+		//System.out.println("    Target: ("+idx+")"  );
 		return idx;
 	}
 
