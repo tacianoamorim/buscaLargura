@@ -31,6 +31,7 @@ public class BuscaLargura {
 		this.idxNo= 0;
 		this.idxProfundidade= 1;
 		this.arrayReferencia= arrayReferencia;
+		this.nos = new LinkedList<No>();
 		
 		No no= criarNo(arrayAleatorio);
 		No noRef= criarNo(arrayReferencia);
@@ -47,6 +48,8 @@ public class BuscaLargura {
 		this.idxNo= 0;
 		this.idxProfundidade= 1;
 		this.arrayReferencia= arrayReferencia;
+		this.nos = new LinkedList<No>();
+		
 		return criarNo(arrayAleatorio);
 	}
 	
@@ -63,7 +66,7 @@ public class BuscaLargura {
 			expandirNo(no);
 			
 			for (No noFilho : no.getFilhos() ) {
-				if ( !existeArray(noFilho.getArray()) )
+				//if ( !existeArray(noFilho.getArray()) )
 					this.nos.add(noFilho);
 			}
 			
