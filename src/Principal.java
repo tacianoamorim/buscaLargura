@@ -183,7 +183,7 @@ public class Principal extends JDialog {
 		btnSortearAleatorio.setForeground(new Color(0, 0, 255));
 		btnSortearAleatorio.setBackground(new Color(240, 230, 140));
 		btnSortearAleatorio.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		btnSortearAleatorio.setBounds(216, 234, 179, 50);
+		btnSortearAleatorio.setBounds(216, 234, 99, 50);
 		contentPanel.add(btnSortearAleatorio);
 		
 		JButton btnProcessar = new JButton("");
@@ -244,63 +244,54 @@ public class Principal extends JDialog {
 		contentPanel.add(panel_1);
 		
 		txtRef01 = new JTextField();
-		txtRef01.setEditable(false);
 		txtRef01.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef01.setColumns(10);
 		txtRef01.setBounds(10, 11, 45, 35);
 		panel_1.add(txtRef01);
 		
 		txtRef02 = new JTextField();
-		txtRef02.setEditable(false);
 		txtRef02.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef02.setColumns(10);
 		txtRef02.setBounds(65, 12, 45, 34);
 		panel_1.add(txtRef02);
 		
 		txtRef03 = new JTextField();
-		txtRef03.setEditable(false);
 		txtRef03.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef03.setColumns(10);
 		txtRef03.setBounds(122, 12, 45, 34);
 		panel_1.add(txtRef03);
 		
 		txtRef04 = new JTextField();
-		txtRef04.setEditable(false);
 		txtRef04.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef04.setColumns(10);
 		txtRef04.setBounds(10, 57, 45, 35);
 		panel_1.add(txtRef04);
 		
 		txtRef05 = new JTextField();
-		txtRef05.setEditable(false);
 		txtRef05.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef05.setColumns(10);
 		txtRef05.setBounds(65, 58, 45, 34);
 		panel_1.add(txtRef05);
 		
 		txtRef06 = new JTextField();
-		txtRef06.setEditable(false);
 		txtRef06.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef06.setColumns(10);
 		txtRef06.setBounds(122, 58, 45, 34);
 		panel_1.add(txtRef06);
 		
 		txtRef07 = new JTextField();
-		txtRef07.setEditable(false);
 		txtRef07.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef07.setColumns(10);
 		txtRef07.setBounds(10, 103, 45, 36);
 		panel_1.add(txtRef07);
 		
 		txtRef08 = new JTextField();
-		txtRef08.setEditable(false);
 		txtRef08.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef08.setColumns(10);
 		txtRef08.setBounds(65, 104, 45, 35);
 		panel_1.add(txtRef08);
 		
 		txtRef09 = new JTextField();
-		txtRef09.setEditable(false);
 		txtRef09.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtRef09.setColumns(10);
 		txtRef09.setBounds(122, 104, 45, 35);
@@ -353,6 +344,46 @@ public class Principal extends JDialog {
 		txtQtdeMovimentos.setBounds(325, 201, 70, 22);
 		contentPanel.add(txtQtdeMovimentos);
 		txtQtdeMovimentos.setColumns(10);
+		
+		JButton btnCalcular = new JButton("");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if ( txtRef01.getText().equals("") && txtRef02.getText().equals("") ) {
+					JOptionPane.showMessageDialog(null, "Gere ou informe os valores alvo.");
+					return;
+				}
+
+				arrayAleatorio[0]= txtPos01.getText();
+				arrayAleatorio[1]= txtPos02.getText();
+				arrayAleatorio[2]= txtPos03.getText();
+				arrayAleatorio[3]= txtPos04.getText();
+				arrayAleatorio[4]= txtPos05.getText();
+				arrayAleatorio[5]= txtPos06.getText();
+				arrayAleatorio[6]= txtPos07.getText();
+				arrayAleatorio[7]= txtPos08.getText();
+				arrayAleatorio[8]= txtPos09.getText();
+				
+				arrayReferencia[0]= txtRef01.getText();
+				arrayReferencia[1]= txtRef02.getText();
+				arrayReferencia[2]= txtRef03.getText();
+				arrayReferencia[3]= txtRef04.getText();
+				arrayReferencia[4]= txtRef05.getText();
+				arrayReferencia[5]= txtRef06.getText();
+				arrayReferencia[6]= txtRef07.getText();
+				arrayReferencia[7]= txtRef08.getText();
+				arrayReferencia[8]= txtRef09.getText();
+
+				No no= BuscaLargura.getIntance().preCalculo(arrayAleatorio, arrayReferencia);
+				txtQtdeMovimentos.setText( no.getValorHeuristica() + "");				
+
+			}
+		});
+		btnCalcular.setIcon(new ImageIcon(Principal.class.getResource("/javax/swing/plaf/metal/icons/ocean/computer.gif")));
+		btnCalcular.setForeground(Color.BLUE);
+		btnCalcular.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		btnCalcular.setBackground(new Color(240, 230, 140));
+		btnCalcular.setBounds(325, 234, 70, 50);
+		contentPanel.add(btnCalcular);
 	}
 	
 	/** * * * * * * * * * * * * * * * * * * * * * * * * * * * *

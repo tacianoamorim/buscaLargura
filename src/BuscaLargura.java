@@ -8,7 +8,7 @@ public class BuscaLargura {
 	private Queue<No> nos = new LinkedList<No>();
 	private String textoResposta;
 	private int idxNo= 0;
-	private int idxProfundidade= 1;
+//	private int idxProfundidade= 1;
 	private String[] arrayReferencia= new String[9];
 	
 	/** * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -29,24 +29,25 @@ public class BuscaLargura {
 	public void iniciarProcessamento(String[] arrayAleatorio, String[] arrayReferencia) {
 		
 		this.idxNo= 0;
-		this.idxProfundidade= 1;
+//		this.idxProfundidade= 1;
 		this.arrayReferencia= arrayReferencia;
 		this.nos = new LinkedList<No>();
 		
 		No no= criarNo(arrayAleatorio);
 		No noRef= criarNo(arrayReferencia);
 		System.out.println("######################################################## ");
-		System.out.println("# NIVEL "+ idxProfundidade++ );
+		//System.out.println("# NIVEL "+ idxProfundidade );
 		System.out.println("# PAI "+ no.toStringResumido());
 		System.out.println("# REF "+ noRef.toStringResumido());
 		System.out.println("######################################################## ");
-
+//		idxProfundidade++;
+		
 		processarBusca(no);
 	}
 	
 	public No preCalculo(String[] arrayAleatorio, String[] arrayReferencia) {
 		this.idxNo= 0;
-		this.idxProfundidade= 1;
+//		this.idxProfundidade= 1;
 		this.arrayReferencia= arrayReferencia;
 		this.nos = new LinkedList<No>();
 		
@@ -131,7 +132,7 @@ public class BuscaLargura {
 		int idxVazio= getIndex(no);
 		
 		System.out.println();
-		System.out.println("# NIVEL "+ idxProfundidade++ );
+		//System.out.println("# NIVEL "+ idxProfundidade );
 		
 		if ( idxVazio == 0 ) {
 			// 1
